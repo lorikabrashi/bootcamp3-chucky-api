@@ -1,4 +1,7 @@
 PORT=3000
+
 DB_CONNECTION = mongodb://127.0.0.1:27017/chuckyDB
+
 HASH_SALT=10
+
 JWT_TOKEN_KEY=aksjdaisjdij2i1u283u21
