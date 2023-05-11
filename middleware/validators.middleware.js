@@ -9,7 +9,11 @@ module.exports = {
     check('password', 'Password is not strong enough').isStrongPassword(),
   ],
   loginCheck: [check('email', 'Email not valid').notEmpty().isEmail(), check('password', 'Password cannot be empty').notEmpty()],
-
+  forgotPasswordRequest: [check('email', 'Email not valid').notEmpty().isEmail()],
+  resetPassword: [
+    check('password', 'Password is not strong enough').isStrongPassword(),
+    check('token', 'Token not valid').notEmpty().isJWT()
+  ],
   validate: (req, res, next) => {
     const errors = validationResult(req)
     if (errors.isEmpty()) {

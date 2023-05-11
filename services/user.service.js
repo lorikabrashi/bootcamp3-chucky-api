@@ -11,7 +11,9 @@ module.exports = {
     return await User.findById(_id)
   },
   verifyAccount: async (_id) => {
-    console.log(_id)
     return await User.findByIdAndUpdate(_id, { verified: true }).exec()
   },
+  updatePassword: async (_id, newPassword) => {
+    return await User.findByIdAndUpdate(_id, { password: newPassword }).exec()
+  }
 }

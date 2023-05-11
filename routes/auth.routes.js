@@ -31,4 +31,23 @@ router.get('/verify-account/:token', async (req, res) => {
   }
 })
 
+router.post('/forgot-password-request', validator.forgotPasswordRequest, validator.validate, async (req, res) => {
+  try {
+    const result = await authController.sendResetPasswordLink(req.body.email)
+    res.json(responder.success(result))
+  } catch (err) {
+    res.json(responder.fail(err))
+  }
+})
+
+router.post('/reset-password', validator.resetPassword, validator.validate, async (req, res) => {
+  try{
+    const result = await authController.resetPassword(req.body.password, req.body.token)
+    res.json(responder.success(result))
+  }
+  catch(err){
+    res.json(responder.fail(err))
+  }
+})
+
 module.exports = router

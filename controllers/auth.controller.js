@@ -12,6 +12,7 @@ module.exports = {
 
     const session = { _id: user._id }
     const payload = jwt.sign(session, process.env.JWT_TOKEN_KEY)
+
     emailService.sendVerificationEmail(user.email, payload)
     return user._id
   },
@@ -47,4 +48,28 @@ module.exports = {
     await userService.verifyAccount(user._id)
     return true
   },
+
+  sendResetPasswordLink: async (email) => {
+    console.log(email)
+    const user = await userService.getUserByEmail(email)
+    if (!user) {
+      throw new EmailNotFound()
+    }
+    const session = { _id: user._id }
+    const payload = jwt.sign(session, process.env.JWT_TOKEN_KEY)
+
+    await emailService.sendResetPasswordLink(email, payload)
+    return true
+  },
+  resetPassword: async (password, token) => {
+    const decoded = jwt.decode(token)
+    const user = await userService.getUserById(decoded._id)
+    if(!user){
+      throw new EmailNotFound()
+    }
+
+    const hashedPassword = bcrypt.hashSync(password, parseInt(process.env.HASH_SALT))
+
+    return await userService.updatePassword(user._id, hashedPassword)
+  }
 }
