@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { Schema } = mongoose;
+const { Schema } = mongoose
 
 const userSchema = mongoose.Schema(
   {
@@ -8,7 +8,9 @@ const userSchema = mongoose.Schema(
     email: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true },
     verified: { type: Boolean, default: false },
-    favorites:  [{ type: Schema.Types.ObjectId, ref: 'Joke' }]
+    favorites: [{ type: Schema.Types.ObjectId, ref: 'Joke' }],
+    role: { type: String, enum: ['ADMIN', 'USER'], default: 'USER' },
+    profileImage: { type: String },
   },
   {
     timestamps: true,

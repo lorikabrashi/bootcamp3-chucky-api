@@ -7,10 +7,11 @@ router.get('/', (req, res) => {
 })
 
 
-router.post('/add-to-favorites', authorizationMiddleware.checkAuth, async (req, res)=> {
+router.post('/add-to-favorites', authorizationMiddleware.checkUserAuth, async (req, res)=> {
   try{
+ 
     // add to favorites
-    console.log(req.userID)
+   
     res.json(responder.success('added to favorites'))
   } 
   catch(err){

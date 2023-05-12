@@ -15,5 +15,15 @@ module.exports = {
   },
   updatePassword: async (_id, newPassword) => {
     return await User.findByIdAndUpdate(_id, { password: newPassword }).exec()
+  },
+  createAdmin: async (userObj) => {
+    const user = { ...userObj, role: 'ADMIN', verified: true }
+    return await User.create(user)
+  },
+  getUsersByRole: async (roleName) => {
+    return await User.find({ role: roleName })
+  },
+  updateProfileImage: async (_id, fileName) => {
+    return await User.findByIdAndUpdate(_id, { profileImage: '/images/' + fileName }).exec()
   }
 }
