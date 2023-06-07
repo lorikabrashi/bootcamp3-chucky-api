@@ -1,7 +1,7 @@
 require('dotenv').config()
 const dbConnection = require('./lib/dbConfig')
 const express = require('express')
-
+var cors = require('cors')
 const authRoutes = require('./routes/auth.routes')
 const favoriteRoutes = require('./routes/favorite.routes')
 const userRoutes = require('./routes/user.routes')
@@ -13,7 +13,7 @@ const app = express()
 
 dbConnection.connect()
 
-
+app.use(cors())
 app.set('view engine', 'ejs')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

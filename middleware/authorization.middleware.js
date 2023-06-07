@@ -11,7 +11,7 @@ const getTokenFromHeader = async (req) => {
   if (!token) {
     throw new InvalidToken()
   }
-
+  
   jwt.verify(token, process.env.JWT_TOKEN_KEY)
 
   const decoded = jwt.decode(token)

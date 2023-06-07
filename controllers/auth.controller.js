@@ -50,7 +50,6 @@ module.exports = {
   },
 
   sendResetPasswordLink: async (email) => {
-    console.log(email)
     const user = await userService.getUserByEmail(email)
     if (!user) {
       throw new EmailNotFound()
