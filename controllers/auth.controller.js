@@ -34,7 +34,14 @@ module.exports = {
     const session = { _id: user._id }
     const payload = jwt.sign(session, process.env.JWT_TOKEN_KEY)
 
-    return payload
+    return {
+      token: payload,
+      user: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email
+      }
+    }
   },
 
   verifyAccount: async (token) => {
